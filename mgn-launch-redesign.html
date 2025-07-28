@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MGN Launch Test Instances - Redesigned</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #232f3e;
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 400;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #232f3e;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ff9900;
+            padding-bottom: 5px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group select,
+        .form-group input {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background: white;
+            transition: border-color 0.2s;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff9900;
+            box-shadow: 0 0 0 2px rgba(255, 153, 0, 0.2);
+        }
+
+        .server-list {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .server-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            border-left: 4px solid #28a745;
+        }
+
+        .server-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .server-icon {
+            width: 16px;
+            height: 16px;
+            background: #28a745;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-box .info-title {
+            font-weight: 600;
+            color: #1976d2;
+            margin-bottom: 5px;
+        }
+
+        .info-box .info-text {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-primary {
+            background: #ff9900;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e6880a;
+        }
+
+        .required {
+            color: #dc3545;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Launch Test Instances</h1>
+            <button class="close-btn">&times;</button>
+        </div>
+
+        <div class="content">
+            <!-- Selected Servers Section -->
+            <div class="section">
+                <div class="section-title">Selected Servers (1 server)</div>
+                <div class="server-list">
+                    <div class="server-item">
+                        <div class="server-icon"></div>
+                        <div>
+                            <strong>web-server-01</strong>
+                            <div class="help-text">Ready for test launch</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Network Configuration Section -->
+            <div class="section">
+                <div class="section-title">Network Configuration</div>
+                <div class="info-box">
+                    <div class="info-title">Applied to ALL selected servers</div>
+                    <div class="info-text">Network settings will be applied uniformly across all test instances</div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="vpc">VPC <span class="required">*</span></label>
+                        <select id="vpc" required>
+                            <option value="">Select VPC</option>
+                            <option value="vpc-12345">vpc-12345 (Dev-VPC)</option>
+                            <option value="vpc-67890">vpc-67890 (Prod-VPC)</option>
+                        </select>
+                        <div class="help-text">Virtual Private Cloud for test instances</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subnet">Subnet <span class="required">*</span></label>
+                        <select id="subnet" required>
+                            <option value="">Select Subnet</option>
+                            <option value="subnet-0cdde71363b517a7c" selected>Dev-PrivateSubnet-A-region1 (10.40.70.0/25 - us-east-1a)</option>
+                            <option value="subnet-0cdde71363b517a7d">Dev-PrivateSubnet-B-region1 (10.40.70.128/25 - us-east-1b)</option>
+                            <option value="subnet-0cdde71363b517a7e">Dev-PublicSubnet-A-region1 (10.40.71.0/25 - us-east-1a)</option>
+                        </select>
+                        <div class="help-text">Target subnet for test instance deployment</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="security-groups">Security Groups <span class="required">*</span></label>
+                        <select id="security-groups" multiple required>
+                            <option value="sg-mgn-default" selected>MGN Default Security Group</option>
+                            <option value="sg-web-servers">Web Servers Security Group</option>
+                            <option value="sg-database">Database Security Group</option>
+                            <option value="sg-ssh-access">SSH Access Security Group</option>
+                        </select>
+                        <div class="help-text">Hold Ctrl/Cmd to select multiple security groups</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="public-ip">Auto-assign Public IP</label>
+                        <select id="public-ip">
+                            <option value="default">Use subnet setting</option>
+                            <option value="enable">Enable</option>
+                            <option value="disable">Disable</option>
+                        </select>
+                        <div class="help-text">Override subnet's auto-assign public IP setting</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Instance Configuration Section -->
+            <div class="section">
+                <div class="section-title">Instance Configuration</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="instance-type">Instance Type <span class="required">*</span></label>
+                        <select id="instance-type" required>
+                            <option value="">Select Instance Type</option>
+                            <option value="t3.micro">t3.micro (1 vCPU, 1 GB RAM)</option>
+                            <option value="t3.small" selected>t3.small (2 vCPU, 2 GB RAM)</option>
+                            <option value="t3.medium">t3.medium (2 vCPU, 4 GB RAM)</option>
+                            <option value="m5.large">m5.large (2 vCPU, 8 GB RAM)</option>
+                            <option value="m5.xlarge">m5.xlarge (4 vCPU, 16 GB RAM)</option>
+                        </select>
+                        <div class="help-text">EC2 instance type for test instances</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="key-pair">Key Pair</label>
+                        <select id="key-pair">
+                            <option value="">No key pair</option>
+                            <option value="dev-keypair">dev-keypair</option>
+                            <option value="mgn-keypair">mgn-keypair</option>
+                            <option value="admin-keypair">admin-keypair</option>
+                        </select>
+                        <div class="help-text">SSH key pair for instance access</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iam-role">IAM Instance Profile</label>
+                        <select id="iam-role">
+                            <option value="">No IAM role</option>
+                            <option value="MGN-TestInstance-Role">MGN-TestInstance-Role</option>
+                            <option value="EC2-SSM-Role">EC2-SSM-Role</option>
+                        </select>
+                        <div class="help-text">IAM role for AWS service access</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="termination-protection">Termination Protection</label>
+                        <select id="termination-protection">
+                            <option value="false" selected>Disabled</option>
+                            <option value="true">Enabled</option>
+                        </select>
+                        <div class="help-text">Prevent accidental instance termination</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Launch Options Section -->
+            <div class="section">
+                <div class="section-title">Launch Options</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="launch-template">Use Launch Template Settings</label>
+                        <select id="launch-template">
+                            <option value="true" selected>Yes - Use configured launch template</option>
+                            <option value="false">No - Use settings above</option>
+                        </select>
+                        <div class="help-text">Override with launch template or use manual settings</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user-data">User Data Script</label>
+                        <select id="user-data">
+                            <option value="">No user data</option>
+                            <option value="bootstrap">Bootstrap Script</option>
+                            <option value="monitoring">Install Monitoring Agent</option>
+                            <option value="custom">Custom Script</option>
+                        </select>
+                        <div class="help-text">Initialization script to run on first boot</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-secondary">Cancel</button>
+            <button class="btn btn-primary">Launch Test Instances</button>
+        </div>
+    </div>
+</body>
+</html>
